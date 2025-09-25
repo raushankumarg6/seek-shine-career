@@ -1,0 +1,258 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "email": "john@example.com",
+      "password": "password123",
+      "role": "jobseeker",
+      "profile": {
+        "name": "John Doe",
+        "phone": "+1234567890",
+        "location": "San Francisco, CA",
+        "experience": "Senior",
+        "skills": ["React", "TypeScript", "Node.js"],
+        "resume": null
+      },
+      "savedJobs": ["1", "3"],
+      "applications": ["1"]
+    },
+    {
+      "id": "2",
+      "email": "employer@techcorp.com",
+      "password": "password123",
+      "role": "employer",
+      "profile": {
+        "name": "TechCorp Solutions",
+        "company": "TechCorp Solutions",
+        "location": "San Francisco, CA",
+        "industry": "Technology"
+      }
+    }
+  ],
+  "jobs": [
+    {
+      "id": "1",
+      "title": "Senior Frontend Developer",
+      "company": "TechCorp Solutions",
+      "companyId": "2",
+      "location": "San Francisco, CA",
+      "type": "Full-time",
+      "experience": "Senior",
+      "industry": "Technology",
+      "salary": "$120,000 - $160,000",
+      "description": "We are looking for a Senior Frontend Developer to join our dynamic team. You will be responsible for building scalable web applications using React, TypeScript, and modern development practices. Work on cutting-edge projects with latest technologies.",
+      "requirements": [
+        "5+ years of experience in frontend development",
+        "Expert knowledge of React, TypeScript, and JavaScript",
+        "Experience with modern CSS frameworks",
+        "Strong understanding of web performance optimization",
+        "Experience with testing frameworks"
+      ],
+      "benefits": [
+        "Competitive salary and equity",
+        "Health, dental, and vision insurance",
+        "Flexible working hours",
+        "Professional development budget",
+        "Remote work options"
+      ],
+      "postedDate": "2024-01-15",
+      "status": "active"
+    },
+    {
+      "id": "2",
+      "title": "Digital Marketing Manager",
+      "company": "Digital Marketing Pro",
+      "companyId": "3",
+      "location": "New York, NY",
+      "type": "Full-time",
+      "experience": "Mid-level",
+      "industry": "Marketing",
+      "salary": "$70,000 - $90,000",
+      "description": "Join our creative team as a Digital Marketing Manager. Lead multi-channel campaigns, analyze performance metrics, and drive customer acquisition strategies. Perfect opportunity for marketing professionals looking to grow their career in digital marketing.",
+      "requirements": [
+        "3+ years of digital marketing experience",
+        "Proficiency in Google Analytics, AdWords, and social media platforms",
+        "Strong analytical and communication skills",
+        "Experience with marketing automation tools",
+        "Bachelor's degree in Marketing or related field"
+      ],
+      "benefits": [
+        "Competitive salary",
+        "Health and wellness benefits",
+        "Creative work environment",
+        "Career growth opportunities",
+        "Team building activities"
+      ],
+      "postedDate": "2024-01-10",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "title": "Financial Analyst",
+      "company": "FinanceFirst Bank",
+      "companyId": "4",
+      "location": "Chicago, IL",
+      "type": "Full-time",
+      "experience": "Entry-level",
+      "industry": "Finance",
+      "salary": "$55,000 - $70,000",
+      "description": "Seeking a detail-oriented Financial Analyst to support our investment team. Analyze financial data, create reports, and assist in investment decision-making processes. Great opportunity for finance graduates to start their career.",
+      "requirements": [
+        "Bachelor's degree in Finance, Economics, or related field",
+        "Strong analytical and quantitative skills",
+        "Proficiency in Excel and financial modeling",
+        "Knowledge of financial markets and instruments",
+        "CFA Level 1 preferred but not required"
+      ],
+      "benefits": [
+        "Comprehensive benefits package",
+        "401(k) with company match",
+        "Professional development opportunities",
+        "Tuition reimbursement",
+        "Work-life balance"
+      ],
+      "postedDate": "2024-01-08",
+      "status": "active"
+    },
+    {
+      "id": "4",
+      "title": "Product Manager",
+      "company": "HealthTech Innovations",
+      "companyId": "5",
+      "location": "Boston, MA",
+      "type": "Full-time",
+      "experience": "Senior",
+      "industry": "Healthcare",
+      "salary": "$110,000 - $140,000",
+      "description": "Lead product strategy and development for our healthcare technology platform. Work closely with engineering, design, and clinical teams to deliver innovative solutions that improve patient care and healthcare outcomes.",
+      "requirements": [
+        "5+ years of product management experience",
+        "Healthcare or medical device experience preferred",
+        "Strong technical background",
+        "Excellent communication and leadership skills",
+        "Experience with agile development methodologies"
+      ],
+      "benefits": [
+        "Competitive compensation package",
+        "Stock options",
+        "Premium healthcare benefits",
+        "Flexible PTO policy",
+        "Innovation time for personal projects"
+      ],
+      "postedDate": "2024-01-12",
+      "status": "active"
+    },
+    {
+      "id": "5",
+      "title": "UX/UI Designer",
+      "company": "TechCorp Solutions",
+      "companyId": "2",
+      "location": "San Francisco, CA",
+      "type": "Full-time",
+      "experience": "Mid-level",
+      "industry": "Technology",
+      "salary": "$85,000 - $110,000",
+      "description": "Create intuitive and engaging user experiences for our software products. Collaborate with product managers and developers to bring designs to life. Work on innovative projects that impact millions of users worldwide.",
+      "requirements": [
+        "3+ years of UX/UI design experience",
+        "Proficiency in Figma, Sketch, or similar design tools",
+        "Strong portfolio demonstrating design process",
+        "Understanding of user research methodologies",
+        "Knowledge of frontend development principles"
+      ],
+      "benefits": [
+        "Creative and collaborative environment",
+        "Latest design tools and equipment",
+        "Conference and workshop attendance",
+        "Flexible work arrangements",
+        "Design mentorship program"
+      ],
+      "postedDate": "2024-01-14",
+      "status": "active"
+    },
+    {
+      "id": "6",
+      "title": "Data Scientist",
+      "company": "TechCorp Solutions",
+      "companyId": "2",
+      "location": "Remote",
+      "type": "Full-time",
+      "experience": "Senior",
+      "industry": "Technology",
+      "salary": "$130,000 - $170,000",
+      "description": "Apply machine learning and statistical analysis to solve complex business problems. Work with large datasets to extract insights and build predictive models. Join our AI team to work on cutting-edge projects.",
+      "requirements": [
+        "PhD or Master's in Data Science, Statistics, or related field",
+        "5+ years of experience in data science",
+        "Proficiency in Python, R, and SQL",
+        "Experience with machine learning frameworks",
+        "Strong communication skills for presenting findings"
+      ],
+      "benefits": [
+        "Top-tier compensation",
+        "Cutting-edge technology stack",
+        "Research publication opportunities",
+        "Conference speaking opportunities",
+        "Fully remote work option"
+      ],
+      "postedDate": "2024-01-16",
+      "status": "active"
+    }
+  ],
+  "applications": [
+    {
+      "id": "1",
+      "jobId": "1",
+      "userId": "1",
+      "applicantName": "John Doe",
+      "applicantEmail": "john@example.com",
+      "applicantPhone": "+1234567890",
+      "coverLetter": "I am very interested in this position...",
+      "resume": null,
+      "status": "pending",
+      "appliedDate": "2024-01-20"
+    }
+  ],
+  "companies": [
+    {
+      "id": "2",
+      "name": "TechCorp Solutions",
+      "description": "Leading technology company specializing in AI and cloud solutions",
+      "location": "San Francisco, CA",
+      "size": "500-1000",
+      "industry": "Technology",
+      "website": "https://techcorp.com",
+      "logo": null
+    },
+    {
+      "id": "3",
+      "name": "Digital Marketing Pro",
+      "description": "Full-service digital marketing agency helping brands grow online",
+      "location": "New York, NY",
+      "size": "50-100",
+      "industry": "Marketing",
+      "website": "https://digitalmarketingpro.com",
+      "logo": null
+    },
+    {
+      "id": "4",
+      "name": "FinanceFirst Bank",
+      "description": "Premier financial institution offering comprehensive banking services",
+      "location": "Chicago, IL",
+      "size": "1000+",
+      "industry": "Finance",
+      "website": "https://financefirst.com",
+      "logo": null
+    },
+    {
+      "id": "5",
+      "name": "HealthTech Innovations",
+      "description": "Revolutionary healthcare technology solutions for better patient care",
+      "location": "Boston, MA",
+      "size": "200-500",
+      "industry": "Healthcare",
+      "website": "https://healthtech.com",
+      "logo": null
+    }
+  ]
+}

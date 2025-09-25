@@ -1,10 +1,22 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Search, User, Bell } from "lucide-react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import AuthModal from "@/components/auth/AuthModal";
+import { authService } from "@/services/auth";
+import { Menu, X, Search, User, Bell, Briefcase, Heart, LogOut } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [authModalOpen, setAuthModalOpen] = useState(false);
+  const [authTab, setAuthTab] = useState<'login' | 'register'>('login');
+  const user = authService.getCurrentUser();
+
+  const handleLogout = () => {
+    authService.logout();
+    window.location.reload();
+  };
   const location = useLocation();
 
   const navigation = [
