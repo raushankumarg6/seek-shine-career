@@ -1,15 +1,23 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MapPin, Clock, Building, DollarSign } from "lucide-react";
-import { Job } from "@/services/mockData";
+import { MapPin, Clock, Building, DollarSign, Heart } from "lucide-react";
+import { Job } from "@/services/api";
+import { authService } from "@/services/auth";
+import { useToast } from "@/hooks/use-toast";
 
 interface JobCardProps {
   job: Job;
 }
 
 const JobCard = ({ job }: JobCardProps) => {
+  const { toast } = useToast();
+  const [isSaving, setIsSaving] = useState(false);
+  const user = authService.getCurrentUser();
+  const isSaved = user?.savedJobs?.includes(job.id) || false;
+
   const timeAgo = (dateString: string) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -20,6 +28,38 @@ const JobCard = ({ job }: JobCardProps) => {
     if (diffDays < 7) return `${diffDays} days ago`;
     if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks ago`;
     return `${Math.ceil(diffDays / 30)} months ago`;
+  };
+
+  const handleSaveJob = async () => {
+    if (!user) return;
+    
+    setIsSaving(true);
+    try {
+      const result = isSaved 
+        ? await authService.unsaveJob(job.id)
+        : await authService.saveJob(job.id);
+      
+      if (result.success) {
+        toast({
+          title: isSaved ? "Job Removed" : "Job Saved",
+          description: result.message,
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -80,11 +120,23 @@ const JobCard = ({ job }: JobCardProps) => {
         >
           <Link to={`/jobs/${job.id}`}>View Details</Link>
         </Button>
+        {user && (
+          <Button 
+            size="sm" 
+            variant="outline"
+            onClick={handleSaveJob}
+            disabled={isSaving}
+            className={`px-3 ${isSaved ? 'text-red-500 hover:text-red-600' : 'text-muted-foreground hover:text-primary'}`}
+          >
+            <Heart className={`h-4 w-4 ${isSaved ? 'fill-current' : ''}`} />
+          </Button>
+        )}
         <Button 
+          asChild
           size="sm" 
           className="gradient-primary hover:shadow-glow transition-smooth px-6"
         >
-          Apply Now
+          <Link to={`/jobs/${job.id}`}>Apply Now</Link>
         </Button>
       </div>
     </Card>

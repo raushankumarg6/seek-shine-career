@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card } from "@/components/ui/card";
 import { Search, Filter, MapPin, Briefcase, Building, Clock } from "lucide-react";
-import { FILTER_OPTIONS } from "@/services/mockData";
+import { FILTER_OPTIONS } from "@/services/api";
 
 interface SearchFiltersProps {
   onSearch: (filters: {

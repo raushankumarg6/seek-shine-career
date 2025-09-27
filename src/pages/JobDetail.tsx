@@ -1,4 +1,4 @@
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Navbar from "@/components/ui/navbar";
@@ -9,14 +9,19 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { JobService } from "@/services/mockData";
-import { ArrowLeft, MapPin, Clock, Building, DollarSign, Calendar, CheckCircle, Loader2 } from "lucide-react";
+import { apiService } from "@/services/api";
+import { authService } from "@/services/auth";
+import AuthModal from "@/components/auth/AuthModal";
+import { ArrowLeft, MapPin, Clock, Building, DollarSign, Calendar, CheckCircle, Loader2, Heart } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 const JobDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const [isApplying, setIsApplying] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [applicationData, setApplicationData] = useState({
     fullName: "",
     email: "",
@@ -24,19 +29,29 @@ const JobDetail = () => {
     coverLetter: ""
   });
 
+  const user = authService.getCurrentUser();
+  const isSaved = user?.savedJobs?.includes(id || "") || false;
+
   const { data: job, isLoading, error } = useQuery({
     queryKey: ["job", id],
-    queryFn: () => JobService.getJobById(id!),
+    queryFn: () => apiService.getJobById(id!),
     enabled: !!id,
   });
 
   const handleApplicationSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!job) return;
+    if (!job || !user) return;
 
     setIsApplying(true);
     try {
-      const result = await JobService.submitApplication(job.id, applicationData);
+      const result = await apiService.submitApplication({
+        jobId: job.id,
+        userId: user.id,
+        applicantName: applicationData.fullName,
+        applicantEmail: applicationData.email,
+        applicantPhone: applicationData.phone,
+        coverLetter: applicationData.coverLetter
+      });
       
       if (result.success) {
         toast({
@@ -59,6 +74,48 @@ const JobDetail = () => {
       });
     } finally {
       setIsApplying(false);
+    }
+  };
+
+  const handleSaveJob = async () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
+    }
+    
+    setIsSaving(true);
+    try {
+      const result = isSaved 
+        ? await authService.unsaveJob(id!)
+        : await authService.saveJob(id!);
+      
+      if (result.success) {
+        toast({
+          title: isSaved ? "Job Removed" : "Job Saved",
+          description: result.message,
+        });
+      } else {
+        toast({
+          title: "Error",
+          description: result.message,
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleApplyClick = () => {
+    if (!user) {
+      setShowAuthModal(true);
+      return;
     }
   };
 
@@ -183,79 +240,96 @@ const JobDetail = () => {
 
           <div className="space-y-6">
             <Card className="p-6 shadow-soft border-border/50 sticky top-24">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button size="lg" className="w-full gradient-primary hover:shadow-glow transition-smooth mb-4">
-                    Apply for this Position
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-md">
-                  <DialogHeader>
-                    <DialogTitle>Apply for {job.title}</DialogTitle>
-                  </DialogHeader>
-                  <form onSubmit={handleApplicationSubmit} className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="fullName">Full Name *</Label>
-                      <Input
-                        id="fullName"
-                        value={applicationData.fullName}
-                        onChange={(e) => setApplicationData({ ...applicationData, fullName: e.target.value })}
-                        required
-                        className="border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email Address *</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={applicationData.email}
-                        onChange={(e) => setApplicationData({ ...applicationData, email: e.target.value })}
-                        required
-                        className="border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number *</Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        value={applicationData.phone}
-                        onChange={(e) => setApplicationData({ ...applicationData, phone: e.target.value })}
-                        required
-                        className="border-border/50 focus:border-primary/50"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="coverLetter">Cover Letter</Label>
-                      <Textarea
-                        id="coverLetter"
-                        value={applicationData.coverLetter}
-                        onChange={(e) => setApplicationData({ ...applicationData, coverLetter: e.target.value })}
-                        placeholder="Tell us why you're perfect for this role..."
-                        className="border-border/50 focus:border-primary/50 min-h-[100px]"
-                      />
-                    </div>
-                    <Button 
-                      type="submit" 
-                      disabled={isApplying}
-                      className="w-full gradient-primary hover:shadow-glow transition-smooth"
-                    >
-                      {isApplying ? (
-                        <>
-                          <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                          Submitting...
-                        </>
-                      ) : (
-                        "Submit Application"
-                      )}
+              {user ? (
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size="lg" className="w-full gradient-primary hover:shadow-glow transition-smooth mb-4">
+                      Apply for this Position
                     </Button>
-                  </form>
-                </DialogContent>
-              </Dialog>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Apply for {job.title}</DialogTitle>
+                    </DialogHeader>
+                    <form onSubmit={handleApplicationSubmit} className="space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="fullName">Full Name *</Label>
+                        <Input
+                          id="fullName"
+                          value={applicationData.fullName}
+                          onChange={(e) => setApplicationData({ ...applicationData, fullName: e.target.value })}
+                          required
+                          className="border-border/50 focus:border-primary/50"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={applicationData.email}
+                          onChange={(e) => setApplicationData({ ...applicationData, email: e.target.value })}
+                          required
+                          className="border-border/50 focus:border-primary/50"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">Phone Number *</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={applicationData.phone}
+                          onChange={(e) => setApplicationData({ ...applicationData, phone: e.target.value })}
+                          required
+                          className="border-border/50 focus:border-primary/50"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="coverLetter">Cover Letter</Label>
+                        <Textarea
+                          id="coverLetter"
+                          value={applicationData.coverLetter}
+                          onChange={(e) => setApplicationData({ ...applicationData, coverLetter: e.target.value })}
+                          placeholder="Tell us why you're perfect for this role..."
+                          className="border-border/50 focus:border-primary/50 min-h-[100px]"
+                        />
+                      </div>
+                      <Button 
+                        type="submit" 
+                        disabled={isApplying}
+                        className="w-full gradient-primary hover:shadow-glow transition-smooth"
+                      >
+                        {isApplying ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            Submitting...
+                          </>
+                        ) : (
+                          "Submit Application"
+                        )}
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
+              ) : (
+                <Button 
+                  onClick={handleApplyClick}
+                  size="lg" 
+                  className="w-full gradient-primary hover:shadow-glow transition-smooth mb-4"
+                >
+                  Apply for this Position
+                </Button>
+              )}
 
-              <Button variant="outline" size="lg" className="w-full hover:shadow-soft transition-bounce">
-                Save Job
+              <Button 
+                variant="outline" 
+                size="lg" 
+                className="w-full hover:shadow-soft transition-bounce"
+                onClick={handleSaveJob}
+                disabled={isSaving}
+              >
+                <Heart className={`h-4 w-4 mr-2 ${isSaved ? 'fill-current text-red-500' : ''}`} />
+                {isSaving ? 'Saving...' : (isSaved ? 'Saved' : 'Save Job')}
               </Button>
             </Card>
 
@@ -283,6 +357,12 @@ const JobDetail = () => {
           </div>
         </div>
       </main>
+
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+        defaultTab="login"
+      />
     </div>
   );
 };

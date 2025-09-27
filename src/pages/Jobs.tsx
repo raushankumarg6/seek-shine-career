@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/ui/navbar";
 import SearchFilters from "@/components/SearchFilters";
 import JobCard from "@/components/JobCard";
-import { JobService, Job } from "@/services/mockData";
+import { apiService } from "@/services/api";
 import { Loader2 } from "lucide-react";
 
 const Jobs = () => {
@@ -17,7 +17,7 @@ const Jobs = () => {
 
   const { data: jobs = [], isLoading, error } = useQuery({
     queryKey: ["jobs", searchFilters],
-    queryFn: () => JobService.searchJobs(searchFilters),
+    queryFn: () => apiService.searchJobs(searchFilters),
     staleTime: 5 * 60 * 1000, // 5 minutes
   });
 
