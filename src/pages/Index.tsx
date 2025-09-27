@@ -221,16 +221,14 @@ const Index = () => {
             <div>
               <h3 className="font-semibold text-foreground mb-4">Employers</h3>
               <ul className="space-y-2 text-muted-foreground">
-                <li><a href="#" className="hover:text-primary transition-smooth">Post Jobs</a></li>
                 <li><a href="#" className="hover:text-primary transition-smooth">Find Candidates</a></li>
-                <li><a href="#" className="hover:text-primary transition-smooth">Pricing</a></li>
                 <li><a href="#" className="hover:text-primary transition-smooth">Resources</a></li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-border mt-8 pt-8 text-center text-muted-foreground">
-            <p>&copy; 2024 JobPortal. All rights reserved.</p>
+            <p>&copy; 2025 JobPortal. All rights reserved.</p>
           </div>
         </div>
       </footer>

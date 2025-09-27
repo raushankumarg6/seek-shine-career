@@ -22,7 +22,6 @@ const Navbar = () => {
   const navigation = [
     { name: "Home", href: "/" },
     { name: "Find Jobs", href: "/jobs" },
-    { name: "Companies", href: "/companies" },
     { name: "About", href: "/about" },
   ];
 
@@ -67,9 +66,7 @@ const Navbar = () => {
               <User className="h-4 w-4 mr-2" />
               Sign In
             </Button>
-            <Button size="sm" className="gradient-primary hover:shadow-glow transition-smooth">
-              Post Job
-            </Button>
+           
           </div>
 
           <div className="-mr-2 flex items-center sm:hidden">
@@ -110,9 +107,7 @@ const Navbar = () => {
                 <User className="h-4 w-4 mr-2" />
                 Sign In
               </Button>
-              <Button size="sm" className="w-full gradient-primary">
-                Post Job
-              </Button>
+           
             </div>
           </div>
         </div>

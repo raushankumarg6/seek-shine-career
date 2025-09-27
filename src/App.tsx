@@ -25,7 +25,6 @@ const App = () => (
           <Route path="/jobs/:id" element={<JobDetail />} />
           <Route path="/about" element={<About />} />
           <Route path="/employer/dashboard" element={<EmployerDashboard />} />
-          <Route path="/employer/post-job" element={<PostJob />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

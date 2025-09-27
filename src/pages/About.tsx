@@ -3,14 +3,14 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/ui/navbar";
 import { Link } from "react-router-dom";
-import { 
-  ArrowRight, 
-  Users, 
-  Briefcase, 
-  TrendingUp, 
-  Award, 
-  CheckCircle, 
-  Globe, 
+import {
+  ArrowRight,
+  Users,
+  Briefcase,
+  TrendingUp,
+  Award,
+  CheckCircle,
+  Globe,
   Heart,
   Target,
   Lightbulb
@@ -47,27 +47,27 @@ const About = () => {
     }
   ];
 
-  const team = [
-    {
-      name: "Sarah Johnson",
-      role: "CEO & Founder",
-      bio: "Former tech executive with 15 years of experience in talent acquisition and product development."
-    },
-    {
-      name: "Michael Chen",
-      role: "CTO",
-      bio: "Full-stack engineer passionate about building scalable platforms that connect people with opportunities."
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Head of Product",
-      bio: "Product strategist focused on creating intuitive experiences that simplify the job search process."
-    },
-    {
-      name: "David Kim",
-      role: "VP of Engineering",
-      bio: "Engineering leader with expertise in building high-performance systems for millions of users."
-    }
+  const team = [{
+    name: "Saurabh Gupta",
+    role: "Engineering",
+    bio: "Engineering leader with expertise in building high-performance systems for millions of users."
+  },
+  {
+    name: "Ram Verma",
+    role: "Head of Product",
+    bio: "Product strategist focused on creating intuitive experiences that simplify the job search process."
+  },
+  {
+    name: "Rahul Jha",
+    role: "Engineer Manager",
+    bio: "Full-stack engineer passionate about building scalable platforms that connect people with opportunities."
+  },
+  {
+    name: "Rahul Jha",
+    role: "Full Stack Engineer",
+    bio: "Full-stack engineer passionate about building scalable platforms that connect people with opportunities."
+  },
+
   ];
 
   const milestones = [
@@ -101,7 +101,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      
+
       {/* Hero Section */}
       <section className="relative overflow-hidden py-20 lg:py-32">
         <div className="absolute inset-0 gradient-hero opacity-10"></div>
@@ -117,8 +117,8 @@ const About = () => {
               </span>
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed">
-              We believe that finding the right job shouldn't be a job itself. That's why we've built 
-              a platform that makes job searching intuitive, efficient, and successful for both 
+              We believe that finding the right job shouldn't be a job itself. That's why we've built
+              a platform that makes job searching intuitive, efficient, and successful for both
               job seekers and employers.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -166,14 +166,14 @@ const About = () => {
                 Our Story
               </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                JobPortal was born from a simple observation: the job search process was broken. 
-                Job seekers were spending countless hours on applications that went nowhere, while 
+                JobPortal was born from a simple observation: the job search process was broken.
+                Job seekers were spending countless hours on applications that went nowhere, while
                 employers struggled to find qualified candidates in an ocean of resumes.
               </p>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
-                We set out to change this by creating a platform that leverages technology to make 
-                meaningful connections between talent and opportunity. Our intelligent matching system, 
-                comprehensive company insights, and streamlined application process have helped hundreds 
+                We set out to change this by creating a platform that leverages technology to make
+                meaningful connections between talent and opportunity. Our intelligent matching system,
+                comprehensive company insights, and streamlined application process have helped hundreds
                 of thousands of professionals find their dream jobs.
               </p>
               <div className="space-y-3">
@@ -195,7 +195,7 @@ const About = () => {
                 </div>
               </div>
             </div>
-            
+
             <div className="relative">
               <div className="absolute inset-0 gradient-primary rounded-2xl blur-3xl opacity-20"></div>
               <Card className="relative border-border/50 shadow-strong">
@@ -208,7 +208,7 @@ const About = () => {
                       Our Mission
                     </h3>
                     <p className="text-muted-foreground leading-relaxed">
-                      To democratize access to career opportunities by creating the most 
+                      To democratize access to career opportunities by creating the most
                       efficient, transparent, and user-friendly job platform in the world.
                     </p>
                   </div>
@@ -265,7 +265,7 @@ const About = () => {
 
           <div className="relative">
             <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary to-accent"></div>
-            
+
             <div className="space-y-12">
               {milestones.map((milestone, index) => (
                 <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
@@ -284,11 +284,11 @@ const About = () => {
                       </CardContent>
                     </Card>
                   </div>
-                  
+
                   <div className="w-2/12 flex justify-center">
                     <div className="w-4 h-4 rounded-full bg-primary border-4 border-background z-10"></div>
                   </div>
-                  
+
                   <div className="w-5/12"></div>
                 </div>
               ))}
@@ -341,7 +341,7 @@ const About = () => {
             Ready to Start Your Journey?
           </h2>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join hundreds of thousands of professionals who have found their dream careers 
+            Join hundreds of thousands of professionals who have found their dream careers
             through JobPortal. Your next opportunity is waiting.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

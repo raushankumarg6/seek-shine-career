@@ -20,6 +20,7 @@ const JobDetail = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isApplying, setIsApplying] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [applicationData, setApplicationData] = useState({
@@ -59,6 +60,7 @@ const JobDetail = () => {
           description: result.message,
         });
         setApplicationData({ fullName: "", email: "", phone: "", coverLetter: "" });
+        setIsDialogOpen(false);
       } else {
         toast({
           title: "Application Failed",
@@ -241,9 +243,9 @@ const JobDetail = () => {
           <div className="space-y-6">
             <Card className="p-6 shadow-soft border-border/50 sticky top-24">
               {user ? (
-                <Dialog>
+                <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button size="lg" className="w-full gradient-primary hover:shadow-glow transition-smooth mb-4">
+                    <Button  onClick={() => setIsDialogOpen(true)} size="lg" className="w-full gradient-primary hover:shadow-glow transition-smooth mb-4">
                       Apply for this Position
                     </Button>
                   </DialogTrigger>
